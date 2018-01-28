@@ -6,13 +6,13 @@ import org.slf4j.LoggerFactory;
 import java.time.LocalDateTime;
 import java.util.concurrent.Callable;
 
-public class Task implements Runnable, Comparable<Task> {
+class Task implements Runnable, Comparable<Task> {
     private final static Logger logger = LoggerFactory.getLogger(Task.class);
     private final Callable callable;
     private final LocalDateTime localDateTime;
     private final long sequenceNumber;
 
-    public Task(Callable callable, LocalDateTime localDateTime, long sequenceNumber) {
+    Task(Callable callable, LocalDateTime localDateTime, long sequenceNumber) {
         this.callable = callable;
         this.localDateTime = localDateTime;
         this.sequenceNumber = sequenceNumber;
