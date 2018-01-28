@@ -8,6 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -99,6 +100,13 @@ public class ExecutorTest {
                     next.getRight(), next.getLeft().getCallLocalDateTime());
             Assert.assertTrue(msg, prev.getLeft().getCallLocalDateTime().compareTo(next.getLeft().getCallLocalDateTime()) < 1);
         }
+
+        Executor executor = new SingleThreadScheduledExecutor();
+        executor.schedule(() -> {
+                    System.out.println("Hello");
+                    return null;
+                },
+                LocalDateTime.now().plus(200, ChronoUnit.MILLIS));
 
     }
 

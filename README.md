@@ -9,11 +9,11 @@ The idea of the project is to implement a service for executing of callable obje
 ## How to use:
 Build maven project locally. Add maven dependency to pom.xml:
 
-	<dependency>
-		<groupId>com.rk</groupId>
-		<artifactId>callable_executor</artifactId>
-		<version>1.0</version>
-	</dependency>
+    <dependency>
+        <groupId>com.rk</groupId>
+        <artifactId>callable_executor</artifactId>
+        <version>1.0</version>
+    </dependency>
 
 Import Executor and single correct implementation: SingleThreadScheduledExecutor
 
@@ -22,10 +22,12 @@ Import Executor and single correct implementation: SingleThreadScheduledExecutor
     
 Usage:
 
-	Executor executor = new SingleThreadScheduledExecutor();
-	executor.schedule(() -> System.out.println("Hello"), 
-		LocalDateTime.now().plus(200, ChronoUnit.MILLISS))
-		
+    executor.schedule(() -> {
+                System.out.println("Hello");
+                return null;
+            },
+            LocalDateTime.now().plus(200, ChronoUnit.MILLIS));
+
 ## Remarks and limitations:
 - Executor operates in a single thread because correct execution order for thread pool is not guaranteed. E.x: two callable with same scheduled time are obtained by two parallel threads. Distribution of tasks between threads is performed in correct FIFO order, however code inside Callable can be started and ended in arbitrary order due to  asynchronous nature of the threads.
 - Project contains test ExecutorTest. There are commented implementation of Executor: ScheduledThreadPoolBasedExecutor. While it is a great example of multithreaded scheduler using leader-follower pattern it doesn't guarantee such strict execution order for tasks with close scheduled times. You can uncomment the ScheduledThreadPoolBasedExecutor and check that test will fail.
