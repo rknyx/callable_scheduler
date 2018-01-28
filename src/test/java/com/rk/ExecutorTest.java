@@ -56,7 +56,7 @@ public class ExecutorTest {
 
         logger.info("Will solve '{}' prime number tasks.", sequentialTasks.size());
         logger.info("Start scheduling in '{}' threads", SIMULTANEOUS_SCHEDULING_THREADS);
-        //schedule
+        //schedule, comment or uncomment particular executor to see test result
         Executor testedExecutor = new SingleThreadScheduledExecutor();
 //        Executor testedExecutor = new ScheduledThreadPoolBasedExecutor();
         ExecutorService executorService = Executors.newFixedThreadPool(SIMULTANEOUS_SCHEDULING_THREADS);
