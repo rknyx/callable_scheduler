@@ -20,9 +20,6 @@ import java.util.stream.IntStream;
 
 import static java.time.temporal.ChronoUnit.MILLIS;
 
-/**
- * Unit test for simple App.
- */
 public class ExecutorTest {
     private static final String INCORRECT_ORDER_PATTERN = "\nCallable scheduled to: '%s' was called in: '%s',\n" +
             "Callable scheduled to: '%s' was called in: '%s'";
@@ -56,10 +53,13 @@ public class ExecutorTest {
 
         logger.info("Will solve '{}' prime number tasks.", sequentialTasks.size());
         logger.info("Start scheduling in '{}' threads", SIMULTANEOUS_SCHEDULING_THREADS);
+
+
         //schedule, comment or uncomment particular executor to see test result
         Executor testedExecutor = new SingleThreadScheduledExecutor();
 //        Executor testedExecutor = new ScheduledThreadPoolBasedExecutor();
         ExecutorService executorService = Executors.newFixedThreadPool(SIMULTANEOUS_SCHEDULING_THREADS);
+
 
         sequentialTasks.forEach(pair -> executorService.submit(() -> testedExecutor.schedule(pair.getLeft(), pair.getRight())));
         executorService.awaitTermination(SCHEDULE_TIMEOUT_MILLIS, TimeUnit.MILLISECONDS);
@@ -89,6 +89,7 @@ public class ExecutorTest {
                         : datesComparisonResult;
             });
         } else {
+            //Other executors do not set sequence numbers.
             sequentialTasks.sort(Comparator.comparing(Pair::getRight));
         }
 
